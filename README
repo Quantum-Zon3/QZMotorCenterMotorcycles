@@ -1,0 +1,87 @@
+# QZMotorCenterMotorcycles
+
+API REST para la gestión de motocicletas construida con Flask y SQLAlchemy.
+
+## Descripción
+
+Esta aplicación expone un conjunto de endpoints para crear, leer, actualizar y eliminar registros de motocicletas en una base de datos MySQL.
+
+## Estructura del proyecto
+
+- `src/app.py` - punto de entrada de la aplicación Flask.
+- `src/database.py` - configuración de SQLAlchemy y conexión a la base de datos.
+- `src/models/motorcycle.py` - modelo `Motorcycle` que representa la tabla `motorcycles`.
+- `src/routes/motocycleRoutes.py` - endpoints REST para la entidad motocicleta.
+- `src/services/motorcycleService.py` - lógica de acceso a datos y operaciones CRUD.
+
+## Requisitos
+
+- Python 3.11+ compatible.
+- MySQL en ejecución.
+- Dependencias definidas en `requirements.txt`.
+
+## Instalación
+
+1. Crear un entorno virtual y activarlo:
+
+```powershell
+python -m venv venv
+.\\venv\\Scripts\\Activate.ps1
+```
+
+2. Instalar dependencias:
+
+```powershell
+pip install -r requirements.txt
+```
+
+## Configuración de la base de datos
+
+La aplicación utiliza la URL de conexión definida en `src/database.py`:
+
+```python
+DATABASE_URL = "mysql+pymysql://root:Bocajunior@localhost/motorcycles"
+```
+
+Ajusta las credenciales y el nombre de la base de datos según tu entorno.
+
+> Nota: Debes tener creada la base de datos `motorcycles` en MySQL antes de iniciar la aplicación.
+
+## Ejecutar la aplicación
+
+Desde la raíz del proyecto:
+
+```powershell
+python src/app.py
+```
+
+La aplicación quedará disponible en `http://127.0.0.1:5000`.
+
+## Endpoints disponibles
+
+- `GET /api/motorcycles/` - Lista todas las motocicletas.
+- `GET /api/motorcycles/<placa>` - Obtiene una motocicleta por placa.
+- `POST /api/motorcycles/` - Crea una nueva motocicleta.
+- `PUT /api/motorcycles/<placa>` - Actualiza una motocicleta existente.
+- `DELETE /api/motorcycles/<placa>` - Elimina una motocicleta.
+
+## Ejemplo de payload para creación
+
+```json
+{
+  "placa": "ABC123",
+  "marca": "Honda",
+  "modelo": "CBR500R",
+  "year": 2024,
+  "precio": 12500.00,
+  "cilindraje": 500,
+  "image_url": "https://example.com/moto.jpg",
+  "creada_el": "2026-04-11T12:00:00"
+}
+```
+
+## Notas
+
+- El endpoint raíz `/` devuelve `"API PRO funcionando 🚀"`.
+- La tabla `motorcycles` se crea automáticamente al iniciar la aplicación si no existe.
+- `precio` se almacena como `DECIMAL(10,2)`.
